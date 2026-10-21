@@ -13,3 +13,13 @@ StudentStore stores Student objects and works with student properties such as Id
 CourseStore stores Course objects and works with course properties such as Id, Title, and Price.
 
 The methods have almost the same implementation, but the types and property names are different.
+
+# Step 3 — One class for both
+
+## Compiler Error
+
+'T' does not contain a definition for 'id' and no accessible extension method 'id' accepting a first argument of type 'T' could be found (are you missing a using directive or an assembly reference?)
+
+## Why does the compiler reject it?
+
+The compiler does not know if T has an Id property because T can represent any type. Student and Course have an Id property, but other types may not. Therefore, the compiler cannot guarantee that item.Id is valid for every possible type T.
