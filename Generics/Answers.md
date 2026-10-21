@@ -23,3 +23,13 @@ The methods have almost the same implementation, but the types and property name
 ## Why does the compiler reject it?
 
 The compiler does not know if T has an Id property because T can represent any type. Student and Course have an Id property, but other types may not. Therefore, the compiler cannot guarantee that item.Id is valid for every possible type T.
+
+# Step 7 — Prove it in Main
+
+## Why must `new Store<string>()` not compile?
+
+`Store<T>` has the constraint `where T : IHasId`. The `string` type does not implement `IHasId`, so `Store<string>` violates the generic constraint and causes a compile-time error.
+
+## Search — What is the common name for the kind of class built in Steps 4 and 5?
+
+The common name is a **Generic Repository**. It provides reusable operations for storing and retrieving different entity types through one generic implementation.
