@@ -4,28 +4,16 @@
     {
         static void Main(string[] args)
         {
-            StudentStore store = new StudentStore();
+            Store<Student> studentStore = new Store<Student>();
+            studentStore.Add(new Student(1, "Ali"));
+            studentStore.Add(new Student(2, "Mona"));
 
-            store.Add(new Student(1, "Ali"));
-            store.Add(new Student(2, "Mona"));
-            store.Add(new Student(3, "Omar"));
+            Store<Course> courseStore = new Store<Course>();
+            courseStore.Add(new Course(1, "C#", 500));
+            courseStore.Add(new Course(2, "SQL", 400));
 
-            // GetById
-            Student student = store.GetById(2);
-            Console.WriteLine(student?.Name ?? "Not Found");
-
-            // GetAll
-            foreach (var s in store.GetAll())
-            {
-                Console.WriteLine($"{s.Id} - {s.Name}");
-            }
-
-            // Remove
-            store.Remove(2);
-
-            Console.WriteLine(store.GetById(2) == null
-                ? "Student removed"
-                : "Student still exists");
+            Console.WriteLine(studentStore.GetById(2)?.Name);
+            Console.WriteLine(courseStore.GetById(1)?.Title);
         }
     }
 }

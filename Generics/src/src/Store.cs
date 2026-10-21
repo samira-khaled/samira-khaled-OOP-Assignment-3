@@ -4,7 +4,7 @@ using System.Text;
 
 namespace src
 {
-     public class Store<T>
+     public class Store<T> where T : IHasId
      {
             private List<T> items = new List<T>();
 
@@ -17,13 +17,13 @@ namespace src
             {
                 foreach (var item in items)
                 {
-                    if (item.id == id)
+                    if (item.Id == id)
                     {
                         return item;
                     }
                 }
 
-                return null;
+                return default(T);
             }
 
             public List<T> GetAll()
@@ -33,12 +33,12 @@ namespace src
 
             public void Remove(int id)
             {
-                item course = GetById(id);
+            T Item = GetById(id);
 
-                if (course != null)
-                {
-                    courses.Remove(course);
-                }
+            if (Item != null)
+            {
+                items.Remove(Item);
             }
         }
-    }
+     }
+}
