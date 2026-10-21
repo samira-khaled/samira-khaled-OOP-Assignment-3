@@ -6,39 +6,36 @@ namespace src
 {
      public class Store<T> where T : IHasId
      {
-            private List<T> items = new List<T>();
+        private Dictionary<int,T> items = new Dictionary<int,T>();
 
             public void Add(T item)
             {
-                items.Add(item);
-            }
-
-            public T GetById(int id)
-            {
-                foreach (var item in items)
+                if(items.ContainsKey(item.Id))
                 {
-                    if (item.Id == id)
-                    {
-                        return item;
-                    }
+                    throw new ArgumentException($"An item with ID {item.Id} already exists.");
                 }
-
-                return default(T);
+                items.Add(item.Id, item); 
             }
 
-            public List<T> GetAll()
+            public T? GetById(int id)
             {
-                return items;
+                if(items.TryGetValue(id,out T item))
+                {
+                    return item;
+
+                }
+                return default;
             }
 
-            public void Remove(int id)
+            public IReadOnlyDictionary<int,T> GetAll()
             {
-            T Item = GetById(id);
-
-            if (Item != null)
-            {
-                items.Remove(Item);
+            return new Dictionary<int, T>(items);
             }
+
+        public void Remove(int id)
+        {
+            items.Remove(id);
         }
      }
 }
+
